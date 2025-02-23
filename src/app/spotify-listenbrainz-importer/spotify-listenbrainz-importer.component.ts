@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { SpotifyListenbrainzImporterService } from './spotify-listenbrainz-importer.service';
 
 @Component({
-  selector: 'app-spotify-listenbrainz-importer',
-  templateUrl: './spotify-listenbrainz-importer.html'
+    selector: 'app-spotify-listenbrainz-importer',
+    templateUrl: './spotify-listenbrainz-importer.html',
+    standalone: false
 })
 export class SpotifyListenbrainzImporterComponent {
   logs: string[] = [];
