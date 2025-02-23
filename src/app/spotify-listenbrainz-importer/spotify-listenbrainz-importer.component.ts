@@ -3,7 +3,7 @@ import { SpotifyListenbrainzImporterService } from './spotify-listenbrainz-impor
 
 @Component({
   selector: 'app-spotify-listenbrainz-importer',
-  template: 'spotify-listenbrainz-importer.component.html'
+  templateUrl: './spotify-listenbrainz-importer.html'
 })
 export class SpotifyListenbrainzImporterComponent {
   logs: string[] = [];
