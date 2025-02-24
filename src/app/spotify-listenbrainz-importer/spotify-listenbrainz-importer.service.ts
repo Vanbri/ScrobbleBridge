@@ -33,7 +33,6 @@ interface SpotifyTrack {
 })
 export class SpotifyListenbrainzImporterService {
   private readonly LISTENBRAINZ_API = 'https://api.listenbrainz.org/1/submit-listens';
-  private readonly USER_TOKEN = '73g4ba47-e1sa-a490-a3aa-d12345cea000';
   private readonly BATCH_SIZE = 1000;
   private readonly DELAY_MS = 3000;
 
@@ -47,12 +46,11 @@ export class SpotifyListenbrainzImporterService {
     return result;
   }
 
-  private async sendBatch(tracksBatch: SpotifyTrack[], batchNumber: number): Promise<void> {
+  private async sendBatch(tracksBatch: SpotifyTrack[], batchNumber: number, userToken: string): Promise<void> {
     const payload = {
       listen_type: 'import',
       payload: tracksBatch.map((track) => {
         const listenedAt = Math.floor(Date.parse(track.ts) / 1000);
-
         return {
           listened_at: listenedAt,
           track_metadata: {
@@ -87,7 +85,7 @@ export class SpotifyListenbrainzImporterService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${this.USER_TOKEN}`
+      'Authorization': `Token ${userToken}`
     });
 
     try {
@@ -100,12 +98,8 @@ export class SpotifyListenbrainzImporterService {
     }
   }
 
-  public async processTracks(): Promise<void> {
+  public async processTracks(userToken: string, tracks: SpotifyTrack[]): Promise<void> {
     try {
-      const tracks = await firstValueFrom(
-        this.http.get<SpotifyTrack[]>('assets/tracks.json')
-      );
-
       if (!Array.isArray(tracks)) {
         throw new Error('El archivo JSON no contiene un array válido');
       }
@@ -114,16 +108,16 @@ export class SpotifyListenbrainzImporterService {
       console.log(`Se enviarán ${trackBatches.length} lotes de ${this.BATCH_SIZE} canciones.`);
 
       for (let i = 0; i < trackBatches.length; i++) {
-        await this.sendBatch(trackBatches[i], i + 1);
+        await this.sendBatch(trackBatches[i], i + 1, userToken);
         if (i < trackBatches.length - 1) {
           console.log(`Esperando ${this.DELAY_MS / 1000} segundos antes de enviar el siguiente lote...`);
           await this.sleep(this.DELAY_MS);
         }
       }
-
       console.log('Proceso completado.');
     } catch (error) {
       console.error('Error en processTracks:', error);
+      throw error;
     }
   }
 
