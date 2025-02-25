@@ -1,6 +1,11 @@
 {
+    "SPOTIFY_LISTENBRAINZ_IMPORTER": "Importador de ListenBrainz de Spotify",
     "SELECT_FILES": "Seleccionar Archivos",
     "SEND": "Enviar",
     "USER_TOKEN": "Token de Usuario",
-    "YOUR_TOKKEN": "Tu Token"
+    "YOUR_TOKKEN": "Tu Token",
+
+    "HISTORY_TO_CSV": "Historial a CSV",
+
+    "LISTENBRAINZ_DATABASE_TOOLS": "Herramientas de Base de Datos de ListenBrainz"
 }

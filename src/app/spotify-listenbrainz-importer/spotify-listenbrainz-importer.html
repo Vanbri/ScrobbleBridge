@@ -1,22 +1,21 @@
 <div>
-    <h2>{{ 'SEND' | translate }}</h2>
-  
+  <h2>{{ 'SPOTIFY_LISTENBRAINZ_IMPORTER' | translate }}</h2>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>{{ 'USER_TOKEN' | translate }}</mat-label>
+    <input matInput placeholder="{{ 'YOUR_TOKKEN' | translate }}" [(ngModel)]="userToken">
+  </mat-form-field>
+
+  <div class="file-upload">
+    <input type="file" #fileInput hidden (change)="onFileSelected($event)">
     <mat-form-field class="example-full-width">
-      <mat-label>{{ 'USER_TOKEN' | translate }}</mat-label>
-      <input matInput placeholder="{{ 'YOUR_TOKKEN' | translate }}" [(ngModel)]="userToken">
+      <mat-label>{{ 'SELECT_FILES' | translate }}</mat-label>
+      <input matInput [value]="fileName" readonly>
+      <button mat-icon-button matSuffix (click)="fileInput.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
     </mat-form-field>
-  
-    <div class="file-upload">
-      <input type="file" #fileInput hidden (change)="onFileSelected($event)">
-      <mat-form-field class="example-full-width">
-        <mat-label>{{ 'SELECT_FILES' | translate }}</mat-label>
-        <input matInput [value]="fileName" readonly>
-        <button mat-icon-button matSuffix (click)="fileInput.click()">
-          <mat-icon>attach_file</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-    <br>
-    <button mat-button (click)="process()">{{ 'SEND' | translate }}</button>
   </div>
-  
+  <br>
+  <button mat-button (click)="process()">{{ 'SEND' | translate }}</button>
+</div>

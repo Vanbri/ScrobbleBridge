@@ -1,9 +1,17 @@
 <mat-toolbar color="primary">
-    <span>My Application</span>
+    <span>Scrobble Bridge</span>
 </mat-toolbar>
 
 <mat-sidenav-container style="height: calc(100vh - 64px);">
     <mat-sidenav-content>
-        <router-outlet></router-outlet>
+        <mat-tab-group>
+            <mat-tab label="{{ 'SPOTIFY_LISTENBRAINZ_IMPORTER' | translate }}">
+                <router-outlet></router-outlet>
+            </mat-tab>
+            <mat-tab label="{{ 'HISTORY_TO_CSV' | translate }}">
+            </mat-tab>
+            <mat-tab label="{{ 'LISTENBRAINZ_DATABASE_TOOLS' | translate }}">
+            </mat-tab>
+        </mat-tab-group>
     </mat-sidenav-content>
 </mat-sidenav-container>
